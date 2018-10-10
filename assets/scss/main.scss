@@ -24,7 +24,7 @@ $color-danger :#ff6666;
 
 .container{
     width: 100%;
-    max-width: 425px;
+    max-width: 825px;
     background-color: $secondary-bg-color;
     border-radius: 15px;
     a{
@@ -115,5 +115,25 @@ form.was-validated{
     }
     input:valid~.icon-valid{
         display: block;
+    }
+}
+
+.success-msg{
+    color: $color-success;
+    margin-bottom: 20px;
+}
+
+.personal-page{
+    min-height: 600px;
+    width: 100%;
+    justify-content: flex-start;
+    .username{
+        align-self: flex-end;
+        padding-right: 10px;
+        margin-top: 10px;
+    }
+    .icon-user{
+        font-size: 1rem;
+        padding-right: 10px;
     }
 }
