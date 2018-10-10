@@ -1,0 +1,119 @@
+$primary-bg-color: #67AFCB;
+$secondary-bg-color: #E4F1F6;
+$dark-bg-color: #092834;
+$text-dark: #092834;
+$text-light-dark: #347B98;
+$text-light: #E4F1F6;
+$color-success: #70db70;
+$color-danger :#ff6666;
+
+@import '_icomoon';
+
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container-fluid{
+    width: 100%;
+    height: 100vh;
+    background-color: $primary-bg-color;
+}
+
+.container{
+    width: 100%;
+    max-width: 425px;
+    background-color: $secondary-bg-color;
+    border-radius: 15px;
+    a{
+        align-self: flex-end;
+        font-size: 14px;
+        padding: 5px 10px;
+        text-decoration: none;
+        color: $text-dark;
+    }
+    a:hover{
+        color: $text-light-dark;
+    }
+}
+
+.flex-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex--column{
+    flex-direction: column;
+}
+form{  
+    padding: 25px 40px;
+    button{
+        margin-top: 20px;
+        background-color: $dark-bg-color;
+        color: $text-light;
+        border: none;
+        border-radius: 15px;       
+        height: 30px;
+        width: 220px;
+        font-weight: 700;
+        transition: 0.5s;
+        cursor: pointer;
+    }
+    button:hover{
+        background-color: $primary-bg-color;
+        color: $text-dark;
+        .icon-arrow-right{
+            transition: 1s;
+            padding-left: 50px;
+        }
+    }
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    input{       
+        margin-bottom: 10px;
+        height: 30px;
+        width: 220px;
+        padding-left: 5px;
+        border-radius: 5px;
+        border: none;
+    }
+    input:focus{
+        outline: 0;
+        box-shadow: 0 0 1pt .5pt #67AFCB;
+    }
+    .icon-valid,
+    .icon-invalid{
+        display: none;
+    }
+    .icon-invalid,
+    .icon-valid{
+        position: absolute;
+        top: 20%;
+        right: 5px;
+    }
+    label{
+        font-size: 14px;
+        color: $text-dark;
+    }
+}
+
+form.was-validated{
+    input:invalid{
+        box-shadow: 0 0 1pt .5pt $color-danger;
+    }
+    input:invalid~.icon-invalid{
+        display: block;
+    }
+    input:valid{
+        box-shadow: 0 0 1pt .5pt $color-success;
+    }
+    input:valid~.icon-valid{
+        display: block;
+    }
+}
