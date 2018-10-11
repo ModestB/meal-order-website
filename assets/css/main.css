@@ -45,46 +45,51 @@
   content: "\e903"; }
 
 * {
-  margin: 0;
-  padding: 0;
   font-family: 'Roboto', sans-serif; }
 
 .container-fluid {
-  width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #67AFCB; }
 
 .container {
+  position: relative;
   width: 100%;
   max-width: 825px;
   background-color: #E4F1F6;
   border-radius: 15px; }
-  .container a {
-    -ms-flex-item-align: end;
-    align-self: flex-end;
-    font-size: 14px;
-    padding: 5px 10px;
-    text-decoration: none;
-    color: #092834; }
-  .container a:hover {
-    color: #347B98; }
 
-.flex-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center; }
+a {
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  font-size: 14px;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #092834; }
 
-.flex--column {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column; }
+a:hover {
+  text-decoration: none;
+  color: #347B98; }
+
+.btn {
+  width: 120px;
+  border-radius: 10px;
+  text-align: center;
+  color: #092834; }
+
+.btn:hover {
+  color: #E4F1F6; }
+
+.btn-danger {
+  background-color: #ff6666; }
+
+.btn-danger:hover {
+  background-color: #ff3333; }
+
+.btn-success {
+  background-color: #70db70; }
+
+.btn-success:hover {
+  background-color: #47d147; }
 
 form {
   padding: 25px 40px; }
@@ -111,13 +116,6 @@ form {
       padding-left: 50px; }
 
 .form-group {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
   position: relative; }
   .form-group input {
     margin-bottom: 10px;
@@ -158,7 +156,9 @@ form.was-validated input:valid ~ .icon-valid {
 
 .success-msg {
   color: #70db70;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  position: absolute;
+  top: 10px; }
 
 .personal-page {
   min-height: 600px;
@@ -174,3 +174,65 @@ form.was-validated input:valid ~ .icon-valid {
   .personal-page .icon-user {
     font-size: 1rem;
     padding-right: 10px; }
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px; }
+
+/* Hide default HTML checkbox */
+.switch input {
+  display: none; }
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  -o-transition: .4s;
+  transition: .4s; }
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  -o-transition: .4s;
+  transition: .4s; }
+
+input:checked + .slider {
+  background-color: #67AFCB; }
+
+input:focus + .slider {
+  -webkit-box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #2196F3; }
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px); }
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px; }
+
+.slider.round:before {
+  border-radius: 50%; }
+
+.soup.disable,
+.salads.disable {
+  display: none; }
+
+select {
+  margin-bottom: 1rem; }
