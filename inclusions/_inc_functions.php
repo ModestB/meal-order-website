@@ -2,7 +2,6 @@
 include "db_connect.php";
 function updateMealPlans(){
     $curl = curl_init();
-
     curl_setopt_array($curl, array(
         CURLOPT_URL => "https://www.sender.net/meals/",
         CURLOPT_RETURNTRANSFER => true,
@@ -13,10 +12,8 @@ function updateMealPlans(){
             "cache-control: no-cache"
         ),
     ));
-
     $response = curl_exec($curl);
     $err = curl_error($curl);
-
     curl_close($curl);
 
     $response = json_decode($response, true);
@@ -29,14 +26,12 @@ function updateMealPlans(){
             addSoups($connectToDb, $weekDay, $meals['soups']);
             addMainDishes($connectToDb, $weekDay, $meals['mainDishes']);
             addSalads($connectToDb, $weekDay, $meals['salads']);
-            addSaladsAddons($connectToDb, $weekDay, $meals['salads']);
             addSideDishes($connectToDb, $weekDay, $meals['sideDishes']['dishes']);
         endif;
-
-
     };
+    header("Location: " . "personal_page.php");
 }
-        
+      
 function addSoups($connectToDb, $weekDay, $soups){
     foreach($soups as $soup){
         $title = $soup["title"];
@@ -70,7 +65,9 @@ function addSalads($connectToDb, $weekDay, $salads){
         if($salad['addons']):
             $addons = 1;
         endif;
-        addSaladsAddons($connectToDb, $weekDay, $salad['addons']);
+        if($addons > 0):
+            addSaladsAddons($connectToDb, $weekDay, $salad['addons']);
+        endif;
         $query = 
             "INSERT INTO mo_meals_salads(id, week_day, title, price, addons)
             VALUES (NULL, '$weekDay', '$title', '$price', '$addons')";
@@ -104,5 +101,40 @@ function clearTables(){
     global $connectToDb;
     $query = "TRUNCATE mo_meals_maindishes;TRUNCATE mo_meals_salads;TRUNCATE mo_meals_salads_addons;TRUNCATE mo_meals_sidedishes;TRUNCATE mo_meals_soups;";
     $result = mysqli_multi_query($connectToDb, $query);
+    header("Location: " . "personal_page.php?update=true");
+}
+
+function getSoups($weekDay){
+    global $connectToDb;
+    $query = "SELECT * FROM mo_meals_soups WHERE week_day ='$weekDay'";
+    $result = mysqli_query($connectToDb, $query);
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+function getSalads($weekDay){
+    global $connectToDb;
+    $query = "SELECT * FROM mo_meals_salads WHERE week_day ='$weekDay'";
+    $result = mysqli_query($connectToDb, $query);
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+function getSaladsAddons($weekDay){
+    global $connectToDb;
+    $query = "SELECT * FROM mo_meals_salads_addons WHERE week_day ='$weekDay'";
+    $result = mysqli_query($connectToDb, $query);
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+function getMainDishes($weekDay){
+    global $connectToDb;
+    $query = "SELECT * FROM mo_meals_maindishes WHERE week_day ='$weekDay'";
+    $result = mysqli_query($connectToDb, $query);
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+function getSideDishes($weekDay){
+    global $connectToDb;
+    $query = "SELECT * FROM mo_meals_sidedishes WHERE week_day ='$weekDay'";
+    $result = mysqli_query($connectToDb, $query);
+    return $result->fetch_all(MYSQLI_ASSOC);
 }
  ?>

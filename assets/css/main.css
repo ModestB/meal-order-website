@@ -137,7 +137,6 @@ form {
     top: 20%;
     right: 5px; }
   .form-group label {
-    font-size: 14px;
     color: #092834; }
 
 form.was-validated input:invalid {
@@ -230,8 +229,10 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%; }
 
+.disable,
 .soup.disable,
-.salads.disable {
+.salads.disable,
+.salads-addons.disable {
   display: none; }
 
 select {

@@ -3,6 +3,14 @@ include "partials/_header.php";
 include "inclusions/_inc_functions.php";
 include "functions.php";
 session_start();
+if(isset($_GET["update"])):
+    updateMealPlans();
+endif;
+?>
+ <?php
+if(isset($_GET["delete"])):
+    clearTables();
+endif;
 ?>
 
 <body>
@@ -25,15 +33,19 @@ session_start();
             endif;
             ?>
             <ul class="list-group">
-                <li class="list-group-item" id="monday">
-                    <h2>Monday</h2>
+                <?php 
+                $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
+                foreach($weekDays as $weekday):
+                ?>
+                <li class="list-group-item" id="<?php echo $weekday ?>">
+                    <h2><?php echo ucfirst($weekday) ?></h2>
                     <form class="p-0">
                         <div class="form-group">
                             <div class="row mt-4">
                                 <div class="col-6">
                                     <div class="d-flex  align-items-center">
                                         <p class="m-0 pr-2">Soup</p>
-                                        <label class="switch m-0" id="mondaySwitch">
+                                        <label class="switch m-0" id="<?php echo $weekday ?>Switch">
                                             <input type="checkbox">
                                             <span class="slider round"></span>
                                         </label>
@@ -43,14 +55,18 @@ session_start();
                             </div>
                             <div class="soup mt-4">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <label for="mondaySoups">Soups</label>
-                                        <select class="form-control" id="mondaySoups">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
+                                    <div class="col">
+                                        <label for="<?php echo $weekday ?>Soups">Soups</label>
+                                        <select class="form-control" id="<?php echo $weekday ?>Soups">
+                                            <option disabled selected value> -- select the soup-- </option>
+                                            <?php
+                                            $soups = getSoups($weekday);
+                                            foreach($soups as $soup):
+                                            ?>
+                                            <option><?php echo $soup["title"] ?></option>
+                                            <?php     
+                                            endforeach;
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
@@ -58,160 +74,104 @@ session_start();
                             <div class="salads disable mt-4">
                                 <div class="row">
                                     <div class="col">
-                                        <label for="mondaySalads">Salads</label>
-                                        <select class="form-control" id="mondaySalads">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
+                                        <label for="<?php echo $weekday ?>Salads">Salads</label>
+                                        <select class="form-control" id="<?php echo $weekday ?>Salads">
+                                            <option disabled selected value> -- select the salads-- </option>
+                                        <?php
+                                            $salads = getSalads($weekday);
+                                            $addons = $weekday . "SaladsAddonsFalse";
+                                            foreach($salads as $salad):
+                                                if($salad['addons']):
+                                                    $addons = $weekday . "SaladsAddonsTrue";
+                                                endif;
+                                            ?>
+                                            <option class="<?php echo $addons ?>"><?php echo $salad["title"] ?></option>
+                                            <?php     
+                                            endforeach;
+                                            ?>
                                         </select>
                                     </div>
+                                </div>
+                                <div class="row">    
                                     <div class="col">
-                                        <label for="mondaySaladsAddons">Salads Addons</label>
-                                        <select class="form-control" id="mondaySaladsAddons">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
+                                        <label for="<?php echo $weekday ?>SaladsAddons">Salads Addons</label>
+                                        <select class="form-control  salads-addons disable" id="<?php echo $weekday ?>SaladsAddons">
+                                        <?php
+                                            $saladsAddons = getSaladsAddons($weekday);
+                                            foreach($saladsAddons as $saladAddon):
+                                            ?>
+                                            <option><?php echo $saladAddon["title"] ?></option>
+                                            <?php     
+                                            endforeach;
+                                        ?>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="mondayMainDishes">Main Dishes</label>
-                                    <select class="form-control" id="mondayMainDishes">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                                <div class="col-3">
-                                    <label for="mondaySideDishesHot">Side Dishes Hot</label>
-                                    <select class="form-control" id="mondaySideDishesHot">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                                <div class="col-3">
-                                    <label for="mondaySideDishesCold">Side Dishes Cold</label>
-                                    <select class="form-control" id="exampleFormControlCold">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                            <div class="row main-dishes">
+                                <div class="col">
+                                    <label for="<?php echo $weekday ?>MainDishes">Main Dishes</label>
+                                    <select class="form-control" id="<?php echo $weekday ?>MainDishes">
+                                        <option disabled selected value> -- select the  main dish-- </option>
+                                    <?php
+                                        $mainDishes = getMainDishes($weekday);
+                                        $sideDish = $weekday . "SideDishesFalse";
+                                        
+                                        foreach($mainDishes as $mainDish):
+                                            if($mainDish['side_dish']):
+                                                $sideDish = $weekday . "SideDishesTrue";
+                                            endif;
+                                        ?>
+                                        <option class="<?php echo $sideDish ?>"><?php echo $mainDish["title"] ?></option>
+                                        <?php     
+                                        endforeach;
+                                    ?>
                                     </select>
                                 </div>
                             </div>
-
-
+                            <div class="row disable" id = "<?php echo $weekday ?>SideDishes">
+                                <div class="col-6">
+                                    <label for="<?php echo $weekday ?>SideDishesHot">Side Dishes Hot</label>
+                                    <select class="form-control" id="<?php echo $weekday ?>SideDishesHot">
+                                    <?php
+                                        $sideDishes = getSideDishes($weekday);
+                                        foreach($sideDishes as $sideDish):
+                                            if($sideDish["dish_type"]=="hot"):
+                                            ?>
+                                            <option><?php echo $sideDish["title"] ?></option>
+                                            <?php
+                                            endif;     
+                                        endforeach;
+                                    ?>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label for="<?php echo $weekday ?>SideDishesCold">Side Dishes Cold</label>
+                                    <select class="form-control" id="<?php echo $weekday ?>SideDishesCold">
+                                    <?php
+                                        $sideDishes = getSideDishes($weekday);
+                                        foreach($sideDishes as $sideDish):
+                                            if($sideDish["dish_type"]=="cold"):
+                                            ?>
+                                            <option><?php echo $sideDish["title"] ?></option>
+                                            <?php
+                                            endif;     
+                                        endforeach;
+                                    ?>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </li>
-                <li class="list-group-item" id="thuesday">
-                    <h2>Monday</h2>
-                    <form class="p-0">
-                        <div class="form-group">
-                            <div class="row mt-4">
-                                <div class="col-6">
-                                    <div class="d-flex  align-items-center">
-                                        <p class="m-0 pr-2">Soup</p>
-                                        <label class="switch m-0" id="thuesdaySwitch">
-                                            <input type="checkbox">
-                                            <span class="slider round"></span>
-                                        </label>
-                                        <p class="m-0 pl-2">Salads</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="soup mt-4">
-                                <p class="p-0">Soups</p>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <select class="form-control" id="exampleFormControlSelect1">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="salads disable mt-4">
-                                <p>Salads</p>
-                                <div class="row">
-                                    <div class="col">
-                                        <select class="form-control" id="exampleFormControlSelect1">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                    <div class="col">
-                                        <select class="form-control" id="exampleFormControlSelect1">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <label for="exampleFormControlSelect1">Example select</label>
-                            <div class="row">
-                                <div class="col">
-                                    <select class="form-control" id="exampleFormControlSelect1">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <select class="form-control" id="exampleFormControlSelect1">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </form>
-                </li>
+                <?php
+                endforeach;
+                ?>
             </ul>
 
-
-            <a href="personal_page.php?delete=true" class="btn btn-danger">Delete Plans</a>
-            <a href="personal_page.php?update=true" class="btn btn-success">Update Plans</a>
+            <!-- <a href="personal_page.php?delete=true" class="btn btn-danger">Delete Plans</a> -->
+            <a href="personal_page.php?delete=true" class="btn btn-success">Update Plans</a>
             
-            <?php
-            if(isset($_GET["update"])):
-                updateMealPlans();
-            endif;
-            ?>
-             <?php
-            if(isset($_GET["delete"])):
-                clearTables();
-            endif;
-            ?>
-        
             </div>           
         </div>
     </div>
