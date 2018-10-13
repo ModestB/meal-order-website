@@ -73,8 +73,62 @@ function logout(){
 
 }
 
-function deleteSession(){
 
+function updateUserOrder(){
+    if(isset($_POST['submit'])){
+        global $connectToDb;
+        $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
+        $username = $_SESSION['username'];
+        foreach($weekDays as $day){
+            $mainDish = $_POST[$day ."MainDishes"];
+
+            if(isset($_POST[$day ."SideDishesHot"])){
+                $sideDishHot = $_POST[$day ."SideDishesHot"];
+            } else{
+                $sideDishHot = "NULL";
+            }
+
+            if(isset($_POST[$day ."SideDishesCold"])){
+                $sideDishCold= $_POST[$day ."SideDishesCold"];
+            } else{
+                $sideDishCold = "NULL";
+            }
+            
+            if(isset($_POST[$day ."Salads"])){
+                $salads= $_POST[$day ."Salads"];
+            } else{
+                $salads = "NULL";
+            }
+
+            if(isset($_POST[$day ."SaladsAddons"])){
+                $saladsAddon= $_POST[$day ."SaladsAddons"];
+            } else{
+                $saladsAddon = "NULL";
+            }
+
+            if(isset($_POST[$day ."Soups"])){
+                $soup= $_POST[$day ."Soups"];
+            } else{
+                $soup = "NULL";
+            }
+           
+            if($connectToDb):
+                $query = "INSERT INTO mo_user_orders(id, username, week_day, main_dish, side_dish_hot, side_dish_cold, salads, salads_addons, soup) VALUES (NULL, '$username', '$day', '$mainDish', '$sideDishHot', '$sideDishCold', '$salads', '$saladsAddon', '$soup')";
+                $result = mysqli_query($connectToDb, $query);
+            endif; 
+        }
+    };
+};
+
+function getUserData(){
+    global $connectToDb;
+    $username = $_SESSION['username'];
+    if($connectToDb):
+        $query = "SELECT * FROM `mo_user_orders` WHERE username = '$username'";
+        $result = mysqli_query($connectToDb, $query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    endif;
 }
+
 
 ?>

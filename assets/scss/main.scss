@@ -51,27 +51,29 @@ a:hover{
 // }
 
 .btn{
-    width: 120px;
+    //width: 120px;
     border-radius: 10px;
     text-align: center;
     color: $text-dark;
 }
 
 .btn:hover{
-    color: $text-light;
+    //color: $text-light;
 }
 
 .btn-danger{
     background-color: $color-danger;
 }
 .btn-danger:hover{
-    background-color: darken($color-danger, 10);
+    background-color: darken($color-danger, 15);
+    color: $text-dark;
 }
 .btn-success{
     background-color: $color-success;
 }
 .btn-success:hover{
-    background-color: darken($color-success, 10);
+    background-color: darken($color-success, 15);
+    color: $text-dark;
 }
 
 form{  

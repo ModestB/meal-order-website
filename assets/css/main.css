@@ -71,25 +71,23 @@ a:hover {
   color: #347B98; }
 
 .btn {
-  width: 120px;
   border-radius: 10px;
   text-align: center;
   color: #092834; }
-
-.btn:hover {
-  color: #E4F1F6; }
 
 .btn-danger {
   background-color: #ff6666; }
 
 .btn-danger:hover {
-  background-color: #ff3333; }
+  background-color: #ff1a1a;
+  color: #092834; }
 
 .btn-success {
   background-color: #70db70; }
 
 .btn-success:hover {
-  background-color: #47d147; }
+  background-color: #33cb33;
+  color: #092834; }
 
 form {
   padding: 25px 40px; }
