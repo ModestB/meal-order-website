@@ -119,6 +119,7 @@ function updateUserOrder(){
             if($connectToDb):
                 $query = "INSERT INTO mo_user_orders(id, username, week_day, main_dish, side_dish_hot, side_dish_cold, salads, salads_addons, soup) VALUES (NULL, '$username', '$day', '$mainDish', '$sideDishHot', '$sideDishCold', '$salads', '$saladsAddon', '$soup')";
                 $result = mysqli_query($connectToDb, $query);
+                $_SESSION['message'] = "Meal Plans Created!!!";
             endif; 
         }
     };

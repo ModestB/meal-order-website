@@ -57,10 +57,11 @@
   width: 100%;
   max-width: 825px;
   background-color: #E4F1F6;
-  border-radius: 15px; }
+  border-radius: 15px;
+  margin: 20px 0; }
 
 .container-big {
-  max-width: 1140px; }
+  max-width: 1280px; }
 
 a {
   -ms-flex-item-align: end;
@@ -73,6 +74,9 @@ a {
 a:hover {
   text-decoration: none;
   color: #347B98; }
+
+.heading-text {
+  color: #E4F1F6; }
 
 .btn {
   border-radius: 10px;
@@ -159,7 +163,7 @@ form.was-validated input:valid ~ .icon-valid {
   color: #70db70;
   margin-bottom: 20px;
   position: absolute;
-  top: 10px; }
+  top: 16px; }
 
 .personal-page,
 .admin-page {
@@ -172,8 +176,7 @@ form.was-validated input:valid ~ .icon-valid {
   .admin-page .username {
     -ms-flex-item-align: end;
     align-self: flex-end;
-    padding-right: 10px;
-    margin-top: 10px; }
+    padding-right: 10px; }
   .personal-page .icon-user,
   .admin-page .icon-user {
     font-size: 1rem;
@@ -242,6 +245,10 @@ input:checked + .slider:before {
 
 select {
   margin-bottom: 1rem; }
+
+table thead {
+  background-color: #092834;
+  color: #E4F1F6; }
 
 table th,
 table td {

@@ -11,7 +11,11 @@
     }
 }());
 setTimeout(function() {
-    document.getElementById("msg").style.display = 'none';
+    try {
+        document.getElementById("msg").style.display = 'none';
+    } catch (error) {
+        
+    }
 }, 5000);
 
 (function (){

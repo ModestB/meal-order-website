@@ -14,11 +14,11 @@ endif;
 ?>
 
 <body>
-    
-    <div class="container-fluid d-flex justify-content-center align-items-center">
+    <div class="container-fluid d-flex  flex-column justify-content-center align-items-center">
+        <h4 class="mt-4 heading-text">Employees Orders</h4>
         <div class="container-big d-flex justify-content-center align-items-center">
             <div class="admin-page d-flex flex-column">
-                <p class="username">
+                <p class="username mt-3">
                     <i class="icon-user"></i>
                     <?php echo $_SESSION['username']?>
                     <a href="index.php?logout=true">Logout</a>
@@ -37,14 +37,15 @@ endif;
             $usersData = getAllUsersData();
             $users = gerUsers();
             //print_r($usersData);
-            foreach($weekDays as $weekDay):
+            //foreach($weekDays as $weekDay):
             ?>
-            <h2 class="pl-2"><?php echo ucfirst($weekDay) ?></h2>
-            <div class="table-responsive">
-                <table class="table table-hover table-bordered">
+           
+            <div class="table-responsive px-3">
+                <table class="display table table-hover table-bordered" id="tableExample">
                     <thead>
                         <tr>
                             <th class="text-nowrap" scope="col">Employe</th>
+                            <th class="text-nowrap" scope="col" style="width: 72px;">Week Day</th>
                             <th class="text-nowrap" scope="col">Soup</th>
                             <th class="text-nowrap" scope="col">Salads</th>
                             <th class="text-nowrap" scope="col">Salads Addon</th>
@@ -56,91 +57,96 @@ endif;
                     <tbody>
                         
                         <?php
-                        foreach($users as $user):
-                        ?>
-                        <tr>
-                            <th><?php echo $user['username'] ?></td>
-                            <td>
-                            <?php
-                            foreach($usersData as $userData):
-                                if($userData['username'] == $user['username'] && $userData['week_day'] == $weekDay ):
-                                    if($userData['soup'] != "NULL"):
-                                        echo $userData['soup'];
-                                    else:
-                                        echo "-";
-                                    endif;
-                                endif;
-                            endforeach;
+                        $index = 1;
+                        foreach($weekDays as $weekDay):
+                            foreach($users as $user):
                             ?>
-                            </td>
-                            <td>
-                            <?php
-                            foreach($usersData as $userData):
-                                if($userData['username'] == $user['username'] && $userData['week_day'] == $weekDay ):
-                                    if($userData['salads'] != "NULL"):
-                                        echo $userData['salads'];
-                                    else:
-                                        echo "-";
+                            <tr>
+                                <th><?php echo $user['username'] ?></td>
+                                <td><?php echo $index . ". " . ucfirst($weekDay) ?></td>
+                                <td>
+                                <?php
+                                foreach($usersData as $userData):
+                                    if($userData['username'] == $user['username'] && $userData['week_day'] == $weekDay ):
+                                        if($userData['soup'] != "NULL"):
+                                            echo $userData['soup'];
+                                        else:
+                                            echo "-";
+                                        endif;
                                     endif;
-                                endif;
-                            endforeach;
-                            ?>
-                            </td>
-                            <td>  
-                            <?php
-                            foreach($usersData as $userData):
-                                if($userData['username'] == $user['username'] && $userData['week_day'] == $weekDay ):
-                                    if($userData['salads_addons'] != "NULL"):
-                                        echo $userData['salads_addons'];
-                                    else:
-                                        echo "-";
+                                endforeach;
+                                ?>
+                                </td>
+                                <td>
+                                <?php
+                                foreach($usersData as $userData):
+                                    if($userData['username'] == $user['username'] && $userData['week_day'] == $weekDay ):
+                                        if($userData['salads'] != "NULL"):
+                                            echo $userData['salads'];
+                                        else:
+                                            echo "-";
+                                        endif;
                                     endif;
-                                endif;
-                            endforeach;
-                            ?>
-                            </td>
-                            <td>
-                            <?php
-                            foreach($usersData as $userData):
-                                //print_r($userData);
-                                if($userData['username'] == $user['username'] && $userData['week_day'] == $weekDay ):
-                                    if($userData['main_dish'] != "NULL"):
-                                        echo $userData['main_dish'];
-                                    else:
-                                        echo "-";
+                                endforeach;
+                                ?>
+                                </td>
+                                <td>  
+                                <?php
+                                foreach($usersData as $userData):
+                                    if($userData['username'] == $user['username'] && $userData['week_day'] == $weekDay ):
+                                        if($userData['salads_addons'] != "NULL"):
+                                            echo $userData['salads_addons'];
+                                        else:
+                                            echo "-";
+                                        endif;
                                     endif;
-                                endif;
-                            endforeach;
-                            ?>   
-                            </td>
-                            <td>
-                            <?php
-                            foreach($usersData as $userData):
-                                if($userData['username'] == $user['username'] && $userData['week_day'] == $weekDay ):
-                                    if($userData['side_dish_hot'] != "NULL"):
-                                        echo $userData['side_dish_hot'];
-                                    else:
-                                        echo "-";
+                                endforeach;
+                                ?>
+                                </td>
+                                <td>
+                                <?php
+                                foreach($usersData as $userData):
+                                    //print_r($userData);
+                                    if($userData['username'] == $user['username'] && $userData['week_day'] == $weekDay ):
+                                        if($userData['main_dish'] != "NULL"):
+                                            echo $userData['main_dish'];
+                                        else:
+                                            echo "-";
+                                        endif;
                                     endif;
-                                endif;
-                            endforeach;
-                            ?>  
-                            </td>
-                            <td>
-                            <?php
-                            foreach($usersData as $userData):
-                                if($userData['username'] == $user['username'] && $userData['week_day'] == $weekDay ):
-                                    if($userData['side_dish_cold'] != "NULL"):
-                                        echo $userData['side_dish_cold'];
-                                    else:
-                                        echo "-";
+                                endforeach;
+                                ?>   
+                                </td>
+                                <td>
+                                <?php
+                                foreach($usersData as $userData):
+                                    if($userData['username'] == $user['username'] && $userData['week_day'] == $weekDay ):
+                                        if($userData['side_dish_hot'] != "NULL"):
+                                            echo $userData['side_dish_hot'];
+                                        else:
+                                            echo "-";
+                                        endif;
                                     endif;
-                                endif;
+                                endforeach;
+                                ?>  
+                                </td>
+                                <td>
+                                <?php
+                                foreach($usersData as $userData):
+                                    if($userData['username'] == $user['username'] && $userData['week_day'] == $weekDay ):
+                                        if($userData['side_dish_cold'] != "NULL"):
+                                            echo $userData['side_dish_cold'];
+                                        else:
+                                            echo "-";
+                                        endif;
+                                    endif;
+                                endforeach;
+                                ?> 
+                                </td>
+                            </tr>   
+                            <?php
                             endforeach;
-                            ?> 
-                            </td>
-                        </tr>   
-                        <?php
+                            $index++;
                         endforeach;
                         ?>
                         
@@ -148,16 +154,12 @@ endif;
                 </table>
             </div>
             <?php
-            endforeach;
+            //endforeach;
             ?>
-
-            <!-- <a href="personal_page.php?delete=true" class="btn btn-danger">Delete Plans</a> -->
-            <a href="personal_page.php?delete=true" class="btn btn-success">Update Plans</a>
-            
+            <a href="personal_page.php?delete=true" class="btn btn-success my-3 mx-3">Update Plans</a>          
             </div>           
         </div>
     </div>
-
 <?php
 include "partials/_footer.php";
 ?>
