@@ -21,12 +21,17 @@ $color-danger :#ff6666;
     background-color: $primary-bg-color;
 }
 
-.container{
+.container,
+.container-big{
     position: relative;
     width: 100%;
     max-width: 825px;
     background-color: $secondary-bg-color;
     border-radius: 15px;
+}
+
+.container-big{
+    max-width: 1140px;
 }
 a{
     align-self: flex-end;
@@ -151,8 +156,8 @@ form.was-validated{
     top: 10px;
     
 }
-
-.personal-page{
+.personal-page,
+.admin-page{
     min-height: 600px;
     width: 100%;
     justify-content: flex-start;
@@ -235,3 +240,10 @@ form.was-validated{
   select{
       margin-bottom: 1rem;
   }
+
+table{
+    th,
+    td{
+        font-size: 14px;
+    }
+}

@@ -3,14 +3,14 @@ include "partials/_header.php";
 include "inclusions/_inc_functions.php";
 include "functions.php";
 session_start();
-if(isset($_GET["update"])):
-    updateMealPlans();
-endif;
-?>
- <?php
-if(isset($_GET["delete"])):
-    clearTables();
-endif;
+// if(isset($_GET["update"])):
+//     updateMealPlans();
+// endif;
+// ?>
+<?php
+// if(isset($_GET["delete"])):
+//     clearTables();
+// endif;
 
 if(isset($_POST["submit"])):
     //print_r($_POST);
@@ -219,12 +219,7 @@ endif;
                     ?>
                 </ul>
                 <button class="btn btn-success p-0" type="submit" name="submit" id="submit">Submit Plans</button>
-            </form>
-
-
-            <!-- <a href="personal_page.php?delete=true" class="btn btn-danger">Delete Plans</a> -->
-            <a href="personal_page.php?delete=true" class="btn btn-success">Update Plans</a>
-            
+            </form>           
             </div>           
         </div>
     </div>

@@ -52,11 +52,15 @@ function login() {
             } else {
                 $user = mysqli_fetch_array($result,MYSQLI_ASSOC);
                 if( password_verify($_POST['pass'], $user['password'])):   
-                   $_SESSION['username'] = $user['username'];
-                   $_SESSION['logged_in'] = true;
+                    $_SESSION['username'] = $user['username'];
+                    $_SESSION['logged_in'] = true;
                    
-                   $_SESSION['message'] = "Successfully Logged In!";
-                   header("location: personal_page.php");
+                    $_SESSION['message'] = "Successfully Logged In!";
+                    if($_SESSION['username'] == "admin"):
+                        header("location: admin_page.php");
+                    else:
+                        header("location: personal_page.php");
+                    endif;                   
                 else:
                     $_SESSION['message'] = "Wrong Username or Password!!!";
                     header("location: error.php");
@@ -125,6 +129,23 @@ function getUserData(){
     $username = $_SESSION['username'];
     if($connectToDb):
         $query = "SELECT * FROM `mo_user_orders` WHERE username = '$username'";
+        $result = mysqli_query($connectToDb, $query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    endif;
+}
+function gerUsers(){
+    global $connectToDb;
+    if($connectToDb):
+        $query = "SELECT username FROM `mo_users`";
+        $result = mysqli_query($connectToDb, $query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    endif;
+}
+
+function getAllUsersData(){
+    global $connectToDb;
+    if($connectToDb):
+        $query = "SELECT * FROM `mo_user_orders`";
         $result = mysqli_query($connectToDb, $query);
         return $result->fetch_all(MYSQLI_ASSOC);
     endif;
