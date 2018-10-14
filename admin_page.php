@@ -63,7 +63,7 @@ endif;
                             ?>
                             <tr>
                                 <th><?php echo $user['username'] ?></td>
-                                <td><?php echo $index . ". " . ucfirst($weekDay) ?></td>
+                                <td><?php echo /*$index . ". " . */ucfirst($weekDay) ?></td>
                                 <td>
                                 <?php
                                 foreach($usersData as $userData):

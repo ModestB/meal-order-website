@@ -254,3 +254,17 @@ table{
         font-size: 14px;
     }
 }
+
+/* ========================================================================== */
+/* DATATABLES style override */
+/* ========================================================================== */
+.dt-button{
+    margin-top: 10px;
+}
+table.dataTable.no-footer{
+    border-bottom: none;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+    padding: 10px 18px 10px 10px;
+}

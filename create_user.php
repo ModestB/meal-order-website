@@ -19,6 +19,11 @@ createUser();
                     <span class="icon-invalid icon-x-altx-alt"></span>
                     <span class="icon-valid icon-check-alt"></span>
                 </div>
+                <div class="form-group  d-flex flex-column">
+                    <input type="email" name="email" class="form-control" id="email" placeholder="Email" required maxlength="40">
+                    <span class="icon-invalid icon-x-altx-alt"></span>
+                    <span class="icon-valid icon-check-alt"></span>
+                </div>
                 <button class="d-flex justify-content-center align-items-center" type="submit" name="submit" id="submit">
                     <p class="m-0">REGISTER</p>
                     <i class="icon-arrow-right"></i></button>

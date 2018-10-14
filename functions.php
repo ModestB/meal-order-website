@@ -6,20 +6,22 @@ function createUser(){
         global $connectToDb;
         $username = mysqli_real_escape_string($connectToDb, $_POST["username"]);
         $pass = mysqli_real_escape_string($connectToDb, $_POST["pass"]);
+        $email = mysqli_real_escape_string($connectToDb, $_POST["email"]);
 
         $pass =  password_hash($pass,  PASSWORD_BCRYPT );
 
         //TIKRINAME ar visi formos laukai u=pildyti
-        if(!empty($username) && !empty($pass)):
+        if(!empty($username) && !empty($pass) && !empty($email)):
 
             // TIKRINAME ar prisijungeme prie duomenu baze
             if($connectToDb):
-                $query = "INSERT INTO mo_users(id, username, password) VALUES (NULL, '$username', '$pass')";
+                $query = "INSERT INTO mo_users(id, username, password, email) VALUES (NULL, '$username', '$pass', '$email')";
                 $result = mysqli_query($connectToDb, $query);
                 
                 if($result):
                     $_SESSION['message'] = "User Created Successfully!";
                     $_SESSION['username'] = $username;
+                    $_SESSION['email'] = $email;
                     $_SESSION['logged_in'] = true;
                     header("Location: " . "personal_page.php");
                     exit();
