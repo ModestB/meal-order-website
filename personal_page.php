@@ -16,6 +16,7 @@ if(isset($_POST["submit"])):
     //print_r($_POST);
     updateUserOrder();
 endif;
+$weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
 ?>
 
 <body> 
@@ -38,11 +39,99 @@ endif;
                 </div>
                 <?php
             endif;
+            if($userData = getUserData()):
             ?>
-            <form class="p-0 mx-3"  action="personal_page.php" method="post">
+            <div class="table-responsive px-3">
+                <table class="display table table-hover table-bordered" id="tableExample">
+                    <thead>
+                        <tr>
+                            <th class="text-nowrap" scope="col" style="width: 80px;">Week Day</th>
+                            <th class="text-nowrap" scope="col">Soup</th>
+                            <th class="text-nowrap" scope="col">Salads</th>
+                            <th class="text-nowrap" scope="col">Salads Addon</th>
+                            <th class="text-nowrap" scope="col">Main Dish</th>
+                            <th class="text-nowrap" scope="col">Side Dish Hot</th>
+                            <th class="text-nowrap" scope="col">Side Dish Cold</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $currentWeekData;
+                        foreach($weekDays as $weekDay):
+                            foreach($userData as $data):
+                                if($data['week_day'] == $weekDay):
+                                    $currentWeekData = $data;
+                                endif;  
+                            endforeach;
+                            ?>
+                            <tr>
+                                <td><?php echo ucfirst($weekDay) ?></td>
+                                <td>
+                                <?php
+                                if($currentWeekData['soup'] != "NULL"):
+                                    echo $currentWeekData['soup'];
+                                else:
+                                    echo "-";
+                                endif;
+                                ?>
+                                </td>
+                                <td>
+                                <?php
+                                if($currentWeekData['salads'] != "NULL"):
+                                    echo $currentWeekData['salads'];
+                                else:
+                                    echo "-";
+                                endif;
+                                ?>
+                                </td>
+                                <td>  
+                                <?php
+                                if($currentWeekData['salads_addons'] != "NULL"):
+                                    echo $currentWeekData['salads_addons'];
+                                else:
+                                    echo "-";
+                                endif;
+                                ?>
+                                </td>
+                                <td>
+                                <?php
+                                if($currentWeekData['main_dish'] != "NULL"):
+                                    echo $currentWeekData['main_dish'];
+                                else:
+                                    echo "-";
+                                endif;
+                                ?>   
+                                </td>
+                                <td>
+                                <?php
+                                if($currentWeekData['side_dish_hot'] != "NULL"):
+                                    echo $currentWeekData['side_dish_hot'];
+                                else:
+                                    echo "-";
+                                endif;
+                                ?>  
+                                </td>
+                                <td>
+                                <?php
+                                if($currentWeekData['side_dish_cold'] != "NULL"):
+                                    echo $currentWeekData['side_dish_cold'];
+                                else:
+                                    echo "-";
+                                endif;
+                                ?> 
+                                </td>
+                            </tr>   
+                            <?php
+                        endforeach;
+                        ?>
+                    </tbody>
+                </table>
+            <?php
+            else:
+                ?>
+                <form class="p-0 mx-3"  action="personal_page.php" method="post">
                 <ul class="list-group">
                     <?php 
-                    $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                     $index = 0;
                     $userOrderOld = getUserData();
                     $currentWeek = [];
@@ -267,7 +356,10 @@ endif;
                     ?>
                 </ul>
                 <button class="btn btn-success my-3 p-0" type="submit" name="submit" id="submit">Submit Plans</button>
-            </form>           
+            </form>       
+            <?php
+            endif;
+            ?>  
             </div>           
         </div>
     </div>
