@@ -79,7 +79,6 @@ function logout(){
 
 }
 
-
 function updateUserOrder(){
     if(isset($_POST['submit'])){
         global $connectToDb;
@@ -153,6 +152,4 @@ function getAllUsersData(){
         return $result->fetch_all(MYSQLI_ASSOC);
     endif;
 }
-
-
 ?>

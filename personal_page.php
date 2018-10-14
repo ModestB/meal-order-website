@@ -45,12 +45,60 @@ endif;
                     $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                     $index = 0;
                     $userOrderOld = getUserData();
+                    $currentWeek = [];
                     $alreadyHavePlan = false;
                     if($userOrderOld){
                         $alreadyHavePlan = true;
                     }
+                    $soups = getSoups();
+                    $salads = getSalads();
+                    $saladsAddons = getSaladsAddons();
+                    $mainDishes = getMainDishes();
+                    $sideDishes = getSideDishes();
+
                     foreach($weekDays as $weekday):
-                        print_r(getUserData());
+                        
+                        $currentWeekSoups = [];
+                        foreach($soups as $soup):
+                            if($soup['week_day'] == $weekday):
+                                array_push($currentWeekSoups, $soup);
+                            endif;
+                        endforeach;
+
+                        
+                        $currentWeekSalads = [];
+                        foreach($salads as $salad):
+                            if($salad['week_day'] == $weekday):
+                                array_push($currentWeekSalads, $salad);
+                            endif;
+                        endforeach;
+
+                        $currentWeekSaladsAddons = [];
+                        foreach($saladsAddons as $saladAddon):
+                            if($saladAddon['week_day'] == $weekday):
+                                array_push($currentWeekSaladsAddons, $saladAddon);
+                            endif;
+                        endforeach;
+
+                        $currentWeekMainDishes = [];
+                        foreach($mainDishes as $mainDish):
+                            if($mainDish['week_day'] == $weekday):
+                                array_push($currentWeekMainDishes, $mainDish);
+                            endif;
+                        endforeach;
+
+                        $currentWeekSideDishes = [];
+                        foreach($sideDishes as $sideDish):
+                            if($sideDish['week_day'] == $weekday):
+                                array_push($currentWeekSideDishes, $sideDish);
+                            endif;
+                        endforeach;
+
+                        foreach($userOrderOld as $userOrder):
+                            if($userOrder['week_day'] == $weekday):
+                                $currentWeek = $userOrder;
+                            endif;
+                        endforeach;
                     ?>
                     <li class="list-group-item" id="<?php echo $weekday ?>">
                             <h2><?php echo ucfirst($weekday) ?></h2>
@@ -81,9 +129,8 @@ endif;
                                         <label for="<?php echo $weekday ?>Soups">Soups</label>
                                         <select class="form-control" name="<?php echo $weekday ?>Soups" id="<?php echo $weekday ?>Soups">
                                             <option disabled selected value> -- select the soup-- </option>
-                                            <?php
-                                            $soups = getSoups($weekday);
-                                            foreach($soups as $soup):
+                                            <?php 
+                                            foreach( $currentWeekSoups as $soup):
                                                 if($soup["title"] == $userOrderOld[$index]['soup']){
                                                     $selected = "selected";
                                                 }else{
@@ -104,10 +151,9 @@ endif;
                                         <label for="<?php echo $weekday ?>Salads">Salads</label>
                                         <select class="form-control" name="<?php echo $weekday ?>Salads" id="<?php echo $weekday ?>Salads">
                                             <option disabled selected value> -- select the salads-- </option>
-                                        <?php
-                                            $salads = getSalads($weekday);
+                                            <?php
                                             $addons = $weekday . "SaladsAddonsFalse";
-                                            foreach($salads as $salad):
+                                            foreach( $currentWeekSalads as $salad):
                                                 if($salad["title"] == $userOrderOld[$index]['salads']):
                                                     $selected = "selected";
                                                 else:
@@ -130,9 +176,8 @@ endif;
                                         <label for="<?php echo $weekday ?>SaladsAddons">Salads Addons</label>
                                         <select class="form-control  salads-addons disable" name="<?php echo $weekday ?>SaladsAddons" id="<?php echo $weekday ?>SaladsAddons">
                                             <option disabled selected value> -- select the addon-- </option>
-                                        <?php
-                                            $saladsAddons = getSaladsAddons($weekday);
-                                            foreach($saladsAddons as $saladAddon):
+                                            <?php
+                                            foreach( $currentWeekSaladsAddons as $saladAddon):
                                                 if($saladAddon["title"] == $userOrderOld[$index]['salads_addons']):
                                                     $selected = "selected";
                                                 else:
@@ -142,7 +187,7 @@ endif;
                                             <option <?php echo  $selected ?> value="<?php echo $saladAddon["title"] ?>"><?php echo $saladAddon["title"] ?></option>
                                             <?php     
                                             endforeach;
-                                        ?>
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
@@ -152,11 +197,9 @@ endif;
                                     <label for="<?php echo $weekday ?>MainDishes">Main Dishes</label>
                                     <select class="form-control" name="<?php echo $weekday ?>MainDishes" id="<?php echo $weekday ?>MainDishes">
                                         <option disabled selected value> -- select the  main dish-- </option>
-                                    <?php
-                                        $mainDishes = getMainDishes($weekday);
+                                        <?php
                                         $sideDish = $weekday . "SideDishesFalse";
-                                        
-                                        foreach($mainDishes as $mainDish):
+                                        foreach( $currentWeekMainDishes as $mainDish):
                                             if($mainDish["title"] == $userOrderOld[$index]['main_dish']):
                                                 $selected = "selected";
                                             else:
@@ -170,7 +213,7 @@ endif;
                                         <option <?php echo  $selected ?> class="<?php echo $sideDish ?>" value="<?php echo $mainDish["title"] ?>"><?php echo $mainDish["title"] ?></option>
                                         <?php     
                                         endforeach;
-                                    ?>
+                                        ?>
                                     </select>
                                 </div>
                             </div>
@@ -179,9 +222,8 @@ endif;
                                     <label for="<?php echo $weekday ?>SideDishesHot">Side Dishes Hot</label>
                                     <select class="form-control" name="<?php echo $weekday ?>SideDishesHot" id="<?php echo $weekday ?>SideDishesHot">
                                         <option disabled selected value> -- select hot side dish- </option>
-                                    <?php
-                                        $sideDishes = getSideDishes($weekday);
-                                        foreach($sideDishes as $sideDish):
+                                        <?php
+                                        foreach($currentWeekSideDishes as $sideDish):
                                             if($sideDish["dish_type"]=="hot"):
                                                 if($sideDish["title"] == $userOrderOld[$index]['side_dish_hot']):
                                                     $selected = "selected";
@@ -193,16 +235,15 @@ endif;
                                             <?php
                                             endif;     
                                         endforeach;
-                                    ?>
+                                        ?>
                                     </select>
                                 </div>
                                 <div class="col-6">
                                     <label for="<?php echo $weekday ?>SideDishesCold">Side Dishes Cold</label>
                                     <select class="form-control" name="<?php echo $weekday ?>SideDishesCold" id="<?php echo $weekday ?>SideDishesCold">
-                                    <option disabled selected value> -- select cold side dish-- </option>
-                                    <?php
-                                        $sideDishes = getSideDishes($weekday);
-                                        foreach($sideDishes as $sideDish):
+                                        <option disabled selected value> -- select cold side dish-- </option>
+                                        <?php
+                                        foreach($currentWeekSideDishes as $sideDish):
                                             if($sideDish["dish_type"]=="cold"):
                                                 if($sideDish["title"] == $userOrderOld[$index]['side_dish_cold']):
                                                     $selected = "selected";
@@ -214,7 +255,7 @@ endif;
                                             <?php
                                             endif;     
                                         endforeach;
-                                    ?>
+                                        ?>
                                     </select>
                                 </div>
                             </div>
@@ -230,7 +271,6 @@ endif;
             </div>           
         </div>
     </div>
-
 <?php
 include "partials/_footer.php";
 ?>

@@ -103,44 +103,39 @@ function clearTables(){
     $result = mysqli_multi_query($connectToDb, $query);
     header("Location: " . "personal_page.php?update=true");
 }
-function getDataAll($weekDay){
-    global $connectToDb;
-    $query = "SELECT * FROM mo_meals_soups WHERE week_day ='$weekDay';SELECT * FROM mo_meals_salads WHERE week_day ='$weekDay';SELECT * FROM mo_meals_salads_addons WHERE week_day ='$weekDay';SELECT * FROM mo_meals_maindishes WHERE week_day ='$weekDay';SELECT * FROM mo_meals_sidedishes WHERE week_day ='$weekDay';";
-    $result = mysqli_multi_query($connectToDb, $query);
-    return $result;
-}
 
-function getSoups($weekDay){
+function getSoups(){
     global $connectToDb;
-    $query = "SELECT * FROM mo_meals_soups WHERE week_day ='$weekDay'";
-    $result = mysqli_query($connectToDb, $query);
-    return $result->fetch_all(MYSQLI_ASSOC);
-}
-function getSalads($weekDay){
-    global $connectToDb;
-    $query = "SELECT * FROM mo_meals_salads WHERE week_day ='$weekDay'";
+    $query = "SELECT * FROM mo_meals_soups";
     $result = mysqli_query($connectToDb, $query);
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-function getSaladsAddons($weekDay){
+function getSalads(){
     global $connectToDb;
-    $query = "SELECT * FROM mo_meals_salads_addons WHERE week_day ='$weekDay'";
+    $query = "SELECT * FROM mo_meals_salads";
     $result = mysqli_query($connectToDb, $query);
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-function getMainDishes($weekDay){
+function getSaladsAddons(){
     global $connectToDb;
-    $query = "SELECT * FROM mo_meals_maindishes WHERE week_day ='$weekDay'";
+    $query = "SELECT * FROM mo_meals_salads_addons";
     $result = mysqli_query($connectToDb, $query);
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-function getSideDishes($weekDay){
+function getMainDishes(){
     global $connectToDb;
-    $query = "SELECT * FROM mo_meals_sidedishes WHERE week_day ='$weekDay'";
+    $query = "SELECT * FROM mo_meals_maindishes";
     $result = mysqli_query($connectToDb, $query);
     return $result->fetch_all(MYSQLI_ASSOC);
 }
- ?>
+
+function getSideDishes(){
+    global $connectToDb;
+    $query = "SELECT * FROM mo_meals_sidedishes";
+    $result = mysqli_query($connectToDb, $query);
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+?>
