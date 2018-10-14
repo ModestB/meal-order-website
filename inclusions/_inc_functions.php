@@ -103,6 +103,12 @@ function clearTables(){
     $result = mysqli_multi_query($connectToDb, $query);
     header("Location: " . "personal_page.php?update=true");
 }
+function getDataAll($weekDay){
+    global $connectToDb;
+    $query = "SELECT * FROM mo_meals_soups WHERE week_day ='$weekDay';SELECT * FROM mo_meals_salads WHERE week_day ='$weekDay';SELECT * FROM mo_meals_salads_addons WHERE week_day ='$weekDay';SELECT * FROM mo_meals_maindishes WHERE week_day ='$weekDay';SELECT * FROM mo_meals_sidedishes WHERE week_day ='$weekDay';";
+    $result = mysqli_multi_query($connectToDb, $query);
+    return $result;
+}
 
 function getSoups($weekDay){
     global $connectToDb;

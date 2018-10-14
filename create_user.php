@@ -5,8 +5,11 @@ session_start();
 createUser();
 ?> 
 <body>
-    <div class="container-fluid d-flex justify-content-center align-items-center">
-        <div class="container d-flex justify-content-center align-items-center flex-column">
+    <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
+        <div class="container d-flex justify-content-center mb-0">
+            <h4 class="heading-text mt-4 mb-0 ml-0">Register Account</h4>
+        </div>
+        <div class="register-page container d-flex justify-content-center align-items-center flex-column mt-0">
             <form class="d-flex flex-column align-items-center" action="create_user.php" method="post">
                 <i class="icon-user"></i>
                 <div class="form-group  d-flex flex-column">

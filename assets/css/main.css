@@ -56,16 +56,12 @@
   position: relative;
   width: 100%;
   max-width: 825px;
-  background-color: #E4F1F6;
-  border-radius: 15px;
   margin: 20px 0; }
 
 .container-big {
   max-width: 1280px; }
 
 a {
-  -ms-flex-item-align: end;
-  align-self: flex-end;
   font-size: 14px;
   padding: 5px 10px;
   text-decoration: none;
@@ -76,12 +72,19 @@ a:hover {
   color: #347B98; }
 
 .heading-text {
-  color: #E4F1F6; }
+  margin-left: 30px;
+  padding: 10px 15px;
+  color: #092834;
+  background-color: #E4F1F6;
+  border-radius: 10px 10px 0 0; }
 
 .btn {
-  border-radius: 10px;
+  max-width: 120px;
+  min-height: 40px;
+  border-radius: 2px;
   text-align: center;
-  color: #092834; }
+  color: #092834;
+  padding: 7px 14px; }
 
 .btn-danger {
   background-color: #ff6666; }
@@ -97,6 +100,11 @@ a:hover {
   background-color: #33cb33;
   color: #092834; }
 
+button:focus {
+  outline: none;
+  -webkit-box-shadow: 0 0 1pt .5pt #67AFCB;
+  box-shadow: 0 0 1pt .5pt #67AFCB; }
+
 form {
   padding: 25px 40px; }
   form button {
@@ -104,7 +112,7 @@ form {
     background-color: #092834;
     color: #E4F1F6;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     height: 30px;
     width: 220px;
     font-weight: 700;
@@ -121,6 +129,9 @@ form {
       transition: 1s;
       padding-left: 50px; }
 
+form {
+  border-radius: 10px; }
+
 .form-group {
   position: relative; }
   .form-group input {
@@ -131,7 +142,7 @@ form {
     border-radius: 5px;
     border: none; }
   .form-group input:focus {
-    outline: 0;
+    outline: none;
     -webkit-box-shadow: 0 0 1pt .5pt #67AFCB;
     box-shadow: 0 0 1pt .5pt #67AFCB; }
   .form-group .icon-valid,
@@ -163,7 +174,15 @@ form.was-validated input:valid ~ .icon-valid {
   color: #70db70;
   margin-bottom: 20px;
   position: absolute;
+  z-index: 0;
   top: 16px; }
+
+.login-page,
+.register-page {
+  background-color: #E4F1F6;
+  border-radius: 10px;
+  min-height: 300px;
+  max-width: 350px; }
 
 .personal-page,
 .admin-page {
@@ -171,12 +190,15 @@ form.was-validated input:valid ~ .icon-valid {
   width: 100%;
   -webkit-box-pack: start;
   -ms-flex-pack: start;
-  justify-content: flex-start; }
+  justify-content: flex-start;
+  background-color: #E4F1F6;
+  border-radius: 10px; }
   .personal-page .username,
   .admin-page .username {
     -ms-flex-item-align: end;
     align-self: flex-end;
-    padding-right: 10px; }
+    padding-right: 10px;
+    z-index: 1000; }
   .personal-page .icon-user,
   .admin-page .icon-user {
     font-size: 1rem;

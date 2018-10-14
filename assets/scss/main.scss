@@ -26,8 +26,8 @@ $color-danger :#ff6666;
     position: relative;
     width: 100%;
     max-width: 825px;
-    background-color: $secondary-bg-color;
-    border-radius: 15px;
+    // background-color: $secondary-bg-color;
+    // border-radius: 15px;
     margin: 20px 0;
 }
 
@@ -35,7 +35,6 @@ $color-danger :#ff6666;
     max-width: 1280px;
 }
 a{
-    align-self: flex-end;
     font-size: 14px;
     padding: 5px 10px;
     text-decoration: none;
@@ -47,7 +46,11 @@ a:hover{
 }
 
 .heading-text{
-    color: $text-light;
+    margin-left: 30px;
+    padding: 10px 15px;
+    color: $text-dark;
+    background-color: $secondary-bg-color;
+    border-radius: 10px 10px 0 0;
 }
 // .flex-container{
 //     display: flex;
@@ -60,10 +63,12 @@ a:hover{
 // }
 
 .btn{
-    //width: 120px;
-    border-radius: 10px;
+    max-width: 120px;
+    min-height: 40px;
+    border-radius: 2px;
     text-align: center;
     color: $text-dark;
+    padding: 7px 14px;
 }
 
 .btn:hover{
@@ -85,6 +90,10 @@ a:hover{
     color: $text-dark;
 }
 
+button:focus{
+    outline: none;
+    box-shadow: 0 0 1pt .5pt #67AFCB; 
+}
 form{  
     padding: 25px 40px;
     button{
@@ -92,7 +101,7 @@ form{
         background-color: $dark-bg-color;
         color: $text-light;
         border: none;
-        border-radius: 15px;       
+        border-radius: 10px;       
         height: 30px;
         width: 220px;
         font-weight: 700;
@@ -108,6 +117,9 @@ form{
         }
     }
 }
+form{
+    border-radius: 10px;
+}
 .form-group{
     position: relative;
     input{    
@@ -119,7 +131,7 @@ form{
         border: none;
     }
     input:focus{
-        outline: 0;
+        outline: none;
         box-shadow: 0 0 1pt .5pt #67AFCB;
     }
     .icon-valid,
@@ -157,17 +169,30 @@ form.was-validated{
     color: $color-success;
     margin-bottom: 20px;
     position: absolute;
+    z-index: 0;
     top: 16px;
     
+}
+
+.login-page,
+.register-page{
+    background-color: $secondary-bg-color;
+    border-radius: 10px;
+    min-height: 300px;
+    max-width: 350px;
 }
 .personal-page,
 .admin-page{
     min-height: 600px;
     width: 100%;
     justify-content: flex-start;
+    background-color: $secondary-bg-color;
+    border-radius: 10px;
+    //border: 1px solid lighten($primary-bg-color, 10);
     .username{
         align-self: flex-end;
         padding-right: 10px;
+        z-index: 1000;
     }
     .icon-user{
         font-size: 1rem;

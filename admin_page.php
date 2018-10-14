@@ -15,8 +15,10 @@ endif;
 
 <body>
     <div class="container-fluid d-flex  flex-column justify-content-center align-items-center">
-        <h4 class="mt-4 heading-text">Employees Orders</h4>
-        <div class="container-big d-flex justify-content-center align-items-center">
+        <div class="container-big d-flex justify-content-start mb-0">
+            <h4 class="heading-text mt-4 mb-0">Employees Orders</h4>
+        </div>
+        <div class="container-big d-flex justify-content-center align-items-center mt-0">
             <div class="admin-page d-flex flex-column">
                 <p class="username mt-3">
                     <i class="icon-user"></i>
@@ -45,7 +47,7 @@ endif;
                     <thead>
                         <tr>
                             <th class="text-nowrap" scope="col">Employe</th>
-                            <th class="text-nowrap" scope="col" style="width: 72px;">Week Day</th>
+                            <th class="text-nowrap" scope="col" style="width: 80px;">Week Day</th>
                             <th class="text-nowrap" scope="col">Soup</th>
                             <th class="text-nowrap" scope="col">Salads</th>
                             <th class="text-nowrap" scope="col">Salads Addon</th>
@@ -63,7 +65,7 @@ endif;
                             ?>
                             <tr>
                                 <th><?php echo $user['username'] ?></td>
-                                <td><?php echo /*$index . ". " . */ucfirst($weekDay) ?></td>
+                                <td><?php echo $index . ". " . ucfirst($weekDay) ?></td>
                                 <td>
                                 <?php
                                 foreach($usersData as $userData):

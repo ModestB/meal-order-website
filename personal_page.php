@@ -20,8 +20,10 @@ endif;
 
 <body> 
     <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
-        <h4 class="mt-4 heading-text">Choose Meals For Each Day Of The Upcoming Week</h4>
-        <div class="container d-flex justify-content-center align-items-center">
+        <div class="container-big d-flex justify-content-start mb-0">
+            <h4 class="heading-text mt-4 mb-0">Choose Meals For Each Day Of The Upcoming Week</h4>
+        </div>
+        <div class="container-big d-flex justify-content-center align-items-center mt-0">
             <div class="personal-page d-flex flex-column">
                 <p class="username mt-3">
                     <i class="icon-user"></i>
@@ -37,7 +39,7 @@ endif;
                 <?php
             endif;
             ?>
-            <form class="p-0"  action="personal_page.php" method="post">
+            <form class="p-0 mx-3"  action="personal_page.php" method="post">
                 <ul class="list-group">
                     <?php 
                     $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
@@ -48,6 +50,7 @@ endif;
                         $alreadyHavePlan = true;
                     }
                     foreach($weekDays as $weekday):
+                        print_r(getUserData());
                     ?>
                     <li class="list-group-item" id="<?php echo $weekday ?>">
                             <h2><?php echo ucfirst($weekday) ?></h2>
@@ -222,7 +225,7 @@ endif;
                     endforeach;
                     ?>
                 </ul>
-                <button class="btn btn-success p-0 my-3" type="submit" name="submit" id="submit">Submit Plans</button>
+                <button class="btn btn-success my-3 p-0" type="submit" name="submit" id="submit">Submit Plans</button>
             </form>           
             </div>           
         </div>
