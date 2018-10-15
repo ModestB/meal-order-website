@@ -1,6 +1,5 @@
 <?php
 include "partials/_header.php";
-include "inclusions/_inc_functions.php";
 include "functions.php";
 session_start();
 

@@ -8,10 +8,17 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-html5-1.5.4/datatables.min.js"></script>
 
 <script>
-    var table =  $(document).ready( function () {
+    let table =  $(document).ready( function () {
         $('#tableExample').DataTable({
-            "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+            "lengthMenu": [ [5, 25, 50, -1], [5, 25, 50, "All"] ],
             dom: 'lfrtpB',
+            buttons: [
+                'pdfHtml5'
+            ]
+        });
+        $('#tableExample2').DataTable({
+            "lengthMenu": [ -1 ],
+            dom: 'frtB',
             buttons: [
                 'pdfHtml5'
             ]

@@ -9,10 +9,7 @@ $color-danger :#ff6666;
 
 @import '_icomoon';
 
-
 *{
-    // margin: 0;
-    // padding: 0;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -26,53 +23,52 @@ $color-danger :#ff6666;
     position: relative;
     width: 100%;
     max-width: 825px;
-    // background-color: $secondary-bg-color;
-    // border-radius: 15px;
     margin: 20px 0;
 }
 
 .container-big{
     max-width: 1280px;
 }
+
 a{
     font-size: 14px;
     padding: 5px 10px;
     text-decoration: none;
     color: $text-dark;
 }
+
 a:hover{
     text-decoration: none;
     color: $text-light-dark;
 }
 
+.heading-text-container{
+    width: 1200px;
+}
+
 .heading-text{
-    margin-left: 30px;
+    cursor: pointer;
+    margin-left: 10px;
     padding: 10px 15px;
     color: $text-dark;
     background-color: $secondary-bg-color;
     border-radius: 10px 10px 0 0;
+    box-shadow: 0 -1px 1px rgba(0,0,0,0.27);
+    position: relative;
+    z-index: 1;
 }
-// .flex-container{
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-// }
 
-// .flex--column{
-//     flex-direction: column;
-// }
+.heading-text-inactive{
+    z-index: 0;
+}
 
 .btn{
-    max-width: 120px;
+    max-width: 200px;
     min-height: 40px;
     border-radius: 2px;
     text-align: center;
     color: $text-dark;
     padding: 7px 14px;
-}
-
-.btn:hover{
-    //color: $text-light;
 }
 
 .btn-danger{
@@ -117,9 +113,11 @@ form{
         }
     }
 }
+
 form{
     border-radius: 10px;
 }
+
 .form-group{
     position: relative;
     input{    
@@ -164,14 +162,12 @@ form.was-validated{
     }
 }
 
-
 .success-msg{
     color: $color-success;
     margin-bottom: 20px;
     position: absolute;
     z-index: 0;
-    top: 16px;
-    
+    top: 16px;   
 }
 
 .login-page,
@@ -180,15 +176,17 @@ form.was-validated{
     border-radius: 10px;
     min-height: 300px;
     max-width: 350px;
+    box-shadow: 0 1px 11px rgba(0,0,0,0.27);
 }
 .personal-page,
-.admin-page{
+.admin-page,
+.statistics-page{
     min-height: 600px;
     width: 100%;
     justify-content: flex-start;
     background-color: $secondary-bg-color;
     border-radius: 10px;
-    //border: 1px solid lighten($primary-bg-color, 10);
+    box-shadow: 0 1px 11px rgba(0,0,0,0.27);
     .username{
         align-self: flex-end;
         padding-right: 10px;
@@ -199,7 +197,13 @@ form.was-validated{
         padding-right: 10px;
     }
 }
-
+.admin-page,
+.statistics-page{
+    display: flex;
+    flex-direction: column;
+    width: 1200px;
+    height: 850px;
+}
 /* The switch - the box around the slider */
 .switch {
     position: relative;

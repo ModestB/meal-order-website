@@ -132,3 +132,27 @@ setTimeout(function() {
         })
     });
 }());
+
+function showActivePageButton() {
+    const pagesButtons = Array.from(document.querySelectorAll('.heading-text'));
+    pagesButtons.forEach((pageButton) => {
+        pageButton.classList.toggle('heading-text-inactive')
+    });
+};
+
+function showActivePage() {
+    const pages = Array.from(document.querySelectorAll('.admin-page, .statistics-page'));
+    pages.forEach((page) => {
+        page.classList.toggle('d-none');
+    });
+};
+
+(function () {
+    const pagesButtons = Array.from(document.querySelectorAll('.heading-text'));
+    pagesButtons.forEach((pageButton) => {
+        pageButton.addEventListener('click', () => {
+            showActivePageButton();
+            showActivePage();
+        });
+    });
+}());
