@@ -26,23 +26,23 @@ login();
                     <span class="icon-valid icon-check-alt"></span>
                 </div>
                 <div>                 
-                    <?php
-                    if(isset($_GET['login']) && $_GET['login'] == 'failed'):
-                        ?>
-                        <p class='text-danger'>
-                            <?php
-                            echo $_SESSION['message'];
-                            ?>
-                        </p>
+                <?php
+                if(isset($_GET['login']) && $_GET['login'] == 'failed'):
+                    ?>
+                    <p class='text-danger'>
                         <?php
-                    endif;
-                    ?>    
+                        echo $_SESSION['message'];
+                        ?>
+                    </p>
+                    <?php
+                endif;
+                ?>    
                 </div>
                 <button class="d-flex justify-content-center align-items-center" type="login" name="login" id="login">
                     <p class="m-0">LOGIN</p>
-                    <i class="icon-arrow-right"></i>
-                    
+                    <i class="icon-arrow-right"></i> 
                 </button>
+                
             </form>
             <a href="create_user.php">Don't have a Account? Create one</a>
         </div>

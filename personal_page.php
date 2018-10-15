@@ -3,17 +3,8 @@ include "partials/_header.php";
 include "inclusions/_inc_functions.php";
 include "functions.php";
 session_start();
-// if(isset($_GET["update"])):
-//     updateMealPlans();
-// endif;
-// ?>
-<?php
-// if(isset($_GET["delete"])):
-//     clearTables();
-// endif;
 
 if(isset($_POST["submit"])):
-    //print_r($_POST);
     updateUserOrder();
 endif;
 $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
@@ -28,7 +19,7 @@ $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
             <div class="personal-page d-flex flex-column">
                 <p class="username mt-3">
                     <i class="icon-user"></i>
-                    <?php echo $_SESSION['username']?>
+                    <?php echo ucfirst($_SESSION['username'])?>
                     <a href="index.php?logout=true">Logout</a>
                 </p>
             <?php
@@ -40,6 +31,7 @@ $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                 <?php
             endif;
             if($userData = getUserData()):
+            
             ?>
             <div class="table-responsive px-3">
                 <table class="display table table-hover table-bordered" id="tableExample">
@@ -52,6 +44,7 @@ $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                             <th class="text-nowrap" scope="col">Main Dish</th>
                             <th class="text-nowrap" scope="col">Side Dish Hot</th>
                             <th class="text-nowrap" scope="col">Side Dish Cold</th>
+                            <th class="text-nowrap" scope="col">Total Price</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,58 +60,63 @@ $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                             <tr>
                                 <td><?php echo ucfirst($weekDay) ?></td>
                                 <td>
-                                <?php
-                                if($currentWeekData['soup'] != "NULL"):
-                                    echo $currentWeekData['soup'];
-                                else:
-                                    echo "-";
-                                endif;
-                                ?>
+                                    <?php
+                                    if($currentWeekData['soup'] != "NULL"):
+                                        echo $currentWeekData['soup'] . " " . $currentWeekData['soup_price'] . "eur";
+                                    else:
+                                        echo "-";
+                                    endif;
+                                    ?>
                                 </td>
                                 <td>
-                                <?php
-                                if($currentWeekData['salads'] != "NULL"):
-                                    echo $currentWeekData['salads'];
-                                else:
-                                    echo "-";
-                                endif;
-                                ?>
+                                    <?php
+                                    if($currentWeekData['salads'] != "NULL"):
+                                        echo $currentWeekData['salads'] . " " .  $currentWeekData['salads_price'] . "eur";
+                                    else:
+                                        echo "-";
+                                    endif;
+                                    ?>
                                 </td>
                                 <td>  
-                                <?php
-                                if($currentWeekData['salads_addons'] != "NULL"):
-                                    echo $currentWeekData['salads_addons'];
-                                else:
-                                    echo "-";
-                                endif;
-                                ?>
+                                    <?php
+                                    if($currentWeekData['salads_addons'] != "NULL"):
+                                        echo $currentWeekData['salads_addons'] . " " .  $currentWeekData['salads_addons_price'] . "eur";
+                                    else:
+                                        echo "-";
+                                    endif;
+                                    ?>
                                 </td>
                                 <td>
-                                <?php
-                                if($currentWeekData['main_dish'] != "NULL"):
-                                    echo $currentWeekData['main_dish'];
-                                else:
-                                    echo "-";
-                                endif;
-                                ?>   
+                                    <?php
+                                    if($currentWeekData['main_dish'] != "NULL"):
+                                        echo $currentWeekData['main_dish'] . " " .  $currentWeekData['main_dish_price'] . "eur";
+                                    else:
+                                        echo "-";
+                                    endif;
+                                    ?>   
                                 </td>
                                 <td>
-                                <?php
-                                if($currentWeekData['side_dish_hot'] != "NULL"):
-                                    echo $currentWeekData['side_dish_hot'];
-                                else:
-                                    echo "-";
-                                endif;
-                                ?>  
+                                    <?php
+                                    if($currentWeekData['side_dish_hot'] != "NULL"):
+                                        echo $currentWeekData['side_dish_hot'];
+                                    else:
+                                        echo "-";
+                                    endif;
+                                    ?>  
                                 </td>
                                 <td>
-                                <?php
-                                if($currentWeekData['side_dish_cold'] != "NULL"):
-                                    echo $currentWeekData['side_dish_cold'];
-                                else:
-                                    echo "-";
-                                endif;
-                                ?> 
+                                    <?php
+                                    if($currentWeekData['side_dish_cold'] != "NULL"):
+                                        echo $currentWeekData['side_dish_cold'];
+                                    else:
+                                        echo "-";
+                                    endif;
+                                    ?> 
+                                </td>
+                                <td>
+                                    <?php
+                                    echo $currentWeekData['total_price'] . " eur";
+                                    ?> 
                                 </td>
                             </tr>   
                             <?php
@@ -128,17 +126,10 @@ $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                 </table>
             <?php
             else:
-                ?>
-                <form class="p-0 mx-3"  action="personal_page.php" method="post">
+            ?>
+            <form class="p-0 mx-3"  action="personal_page.php" method="post">
                 <ul class="list-group">
                     <?php 
-                    $index = 0;
-                    $userOrderOld = getUserData();
-                    $currentWeek = [];
-                    $alreadyHavePlan = false;
-                    if($userOrderOld){
-                        $alreadyHavePlan = true;
-                    }
                     $soups = getSoups();
                     $salads = getSalads();
                     $saladsAddons = getSaladsAddons();
@@ -153,7 +144,6 @@ $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                                 array_push($currentWeekSoups, $soup);
                             endif;
                         endforeach;
-
                         
                         $currentWeekSalads = [];
                         foreach($salads as $salad):
@@ -182,12 +172,6 @@ $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                                 array_push($currentWeekSideDishes, $sideDish);
                             endif;
                         endforeach;
-
-                        foreach($userOrderOld as $userOrder):
-                            if($userOrder['week_day'] == $weekday):
-                                $currentWeek = $userOrder;
-                            endif;
-                        endforeach;
                     ?>
                     <li class="list-group-item" id="<?php echo $weekday ?>">
                             <h2><?php echo ucfirst($weekday) ?></h2>
@@ -197,15 +181,7 @@ $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                                     <div class="d-flex  align-items-center">
                                         <p class="m-0 pr-2">Soup</p>
                                         <label class="switch m-0" id="<?php echo $weekday ?>Switch">
-                                            <?php 
-                                            $checked = "";
-                                            if($alreadyHavePlan):
-                                                if($userOrderOld[$index]['salads'] != "NULL"):
-                                                    $checked = "checked";
-                                                endif;
-                                            endif;
-                                            ?>
-                                            <input <?php echo $checked?> type="checkbox">
+                                            <input type="checkbox">
                                             <span class="slider round"></span>
                                         </label>
                                         <p class="m-0 pl-2">Salads</p>
@@ -220,13 +196,10 @@ $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                                             <option disabled selected value> -- select the soup-- </option>
                                             <?php 
                                             foreach( $currentWeekSoups as $soup):
-                                                if($soup["title"] == $userOrderOld[$index]['soup']){
-                                                    $selected = "selected";
-                                                }else{
-                                                    $selected = "";
-                                                }
                                             ?>
-                                            <option <?php echo  $selected ?> value="<?php echo $soup["title"] ?>"><?php echo $soup["title"] ?></option>
+                                            <option value="<?php echo $soup["title"] . "_{$soup['price']}" ?>">
+                                                <?php echo $soup["title"] . ". Price: {$soup['price']} eur"?>
+                                            </option>
                                             <?php  
                                             endforeach;
                                             ?>
@@ -243,17 +216,13 @@ $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                                             <?php
                                             $addons = $weekday . "SaladsAddonsFalse";
                                             foreach( $currentWeekSalads as $salad):
-                                                if($salad["title"] == $userOrderOld[$index]['salads']):
-                                                    $selected = "selected";
-                                                else:
-                                                    $selected = "";
-                                                endif;
-
                                                 if($salad['addons']):
                                                     $addons = $weekday . "SaladsAddonsTrue";
                                                 endif;
                                             ?>
-                                            <option  <?php echo  $selected ?> class="<?php echo $addons ?>" value="<?php echo $salad["title"] ?>"><?php echo $salad["title"] ?></option>
+                                            <option class="<?php echo $addons ?>" value="<?php echo $salad["title"] . "_{$salad['price']}" ?>">
+                                                <?php echo $salad["title"] . " ({$salad['price']} eur)"?>
+                                            </option>
                                             <?php     
                                             endforeach;
                                             ?>
@@ -267,13 +236,10 @@ $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                                             <option disabled selected value> -- select the addon-- </option>
                                             <?php
                                             foreach( $currentWeekSaladsAddons as $saladAddon):
-                                                if($saladAddon["title"] == $userOrderOld[$index]['salads_addons']):
-                                                    $selected = "selected";
-                                                else:
-                                                    $selected = "";
-                                                endif;
                                             ?>
-                                            <option <?php echo  $selected ?> value="<?php echo $saladAddon["title"] ?>"><?php echo $saladAddon["title"] ?></option>
+                                            <option value="<?php echo $saladAddon["title"] . "_{$saladAddon['price']}"?>">
+                                                <?php echo $saladAddon["title"] . " ({$saladAddon['price']} eur)"?>
+                                            </option>
                                             <?php     
                                             endforeach;
                                             ?>
@@ -289,17 +255,13 @@ $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                                         <?php
                                         $sideDish = $weekday . "SideDishesFalse";
                                         foreach( $currentWeekMainDishes as $mainDish):
-                                            if($mainDish["title"] == $userOrderOld[$index]['main_dish']):
-                                                $selected = "selected";
-                                            else:
-                                                $selected = "";
-                                            endif;
-
                                             if($mainDish['side_dish']):
                                                 $sideDish = $weekday . "SideDishesTrue";
                                             endif;
                                         ?>
-                                        <option <?php echo  $selected ?> class="<?php echo $sideDish ?>" value="<?php echo $mainDish["title"] ?>"><?php echo $mainDish["title"] ?></option>
+                                        <option class="<?php echo $sideDish ?>" value="<?php echo $mainDish["title"] . "_{$mainDish['price']}"?>">
+                                            <?php echo $mainDish["title"] . " ({$mainDish['price']} eur)"?>
+                                        </option>
                                         <?php     
                                         endforeach;
                                         ?>
@@ -314,13 +276,10 @@ $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                                         <?php
                                         foreach($currentWeekSideDishes as $sideDish):
                                             if($sideDish["dish_type"]=="hot"):
-                                                if($sideDish["title"] == $userOrderOld[$index]['side_dish_hot']):
-                                                    $selected = "selected";
-                                                else:
-                                                    $selected = "";
-                                                endif;
                                             ?>
-                                            <option <?php echo  $selected ?> value="<?php echo $sideDish["title"] ?>"><?php echo $sideDish["title"] ?></option>
+                                            <option value="<?php echo $sideDish["title"] ?>">
+                                                <?php echo $sideDish["title"]?>
+                                            </option>
                                             <?php
                                             endif;     
                                         endforeach;
@@ -334,13 +293,10 @@ $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                                         <?php
                                         foreach($currentWeekSideDishes as $sideDish):
                                             if($sideDish["dish_type"]=="cold"):
-                                                if($sideDish["title"] == $userOrderOld[$index]['side_dish_cold']):
-                                                    $selected = "selected";
-                                                else:
-                                                    $selected = "";
-                                                endif;
                                             ?>
-                                            <option <?php echo  $selected ?> value="<?php echo $sideDish["title"] ?>"><?php echo $sideDish["title"] ?></option>
+                                            <option value="<?php echo $sideDish["title"] ?>">
+                                                <?php echo $sideDish["title"]?>
+                                            </option>
                                             <?php
                                             endif;     
                                         endforeach;
@@ -351,7 +307,6 @@ $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
                         </div>
                     </li>
                     <?php
-                    $index++;  
                     endforeach;
                     ?>
                 </ul>

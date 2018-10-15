@@ -27,9 +27,21 @@ createUser();
                     <span class="icon-invalid icon-x-altx-alt"></span>
                     <span class="icon-valid icon-check-alt"></span>
                 </div>
+                <?php
+                if(isset($_GET['create']) && $_GET['create'] == 'failed'):
+                    ?>
+                    <p class='text-danger'>
+                        <?php
+                        echo $_SESSION['message'];
+                        ?>
+                    </p>
+                    <?php
+                endif;
+                ?>  
                 <button class="d-flex justify-content-center align-items-center" type="submit" name="submit" id="submit">
                     <p class="m-0">REGISTER</p>
-                    <i class="icon-arrow-right"></i></button>
+                    <i class="icon-arrow-right"></i>
+                </button>
             </form>
             <a href="index.php">Already have an account? Login</a>
         </div>
