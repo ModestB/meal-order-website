@@ -8,13 +8,16 @@ endif;
 if(isset($_GET["delete"])):
     clearTables();
 endif;
+if(!isset($_SESSION['username'])):
+    $_SESSION['message'] = "Please Login!!!";
+    header('location: index.php?login=failed');
+endif;
 $weekDays = ['monday','tuesday','wednesday', 'thursday', 'friday'];
 $usersData = getAllUsersData();
 $users = getUsers();
 $usersWithOrders = [];
 $usersWithoutOrders = [];
 ?>
-
 <body>
     <div class="container-fluid d-flex  flex-column justify-content-center align-items-center">
         <div class="container-big d-flex justify-content-start mb-0 ml-5 heading-text-container">
@@ -180,7 +183,6 @@ $usersWithoutOrders = [];
                                 $index++;
                             endforeach;
                             ?>
-
                         </tbody>
                     </table>
                 </div>
@@ -191,7 +193,7 @@ $usersWithoutOrders = [];
                 endforeach;
                 ?>
                 </p>
-                <a href="admin_page.php?delete=true" class="btn btn-danger my-3 mx-3">Reset Meal Plans</a>          
+                <a href="admin_page.php?delete=true" class="btn btn-danger mb-3 mt-auto mx-3">Reset Meal Plans</a>          
             </div>
             <div class="statistics-page d-none">
                 <p class="username mt-3">
@@ -205,7 +207,7 @@ $usersWithoutOrders = [];
                             <tr>
                                 <th class="text-nowrap" scope="col">Meal</th>
                                 <th class="text-nowrap" scope="col">Number</th>
-                                <th class="text-nowrap" scope="col">Price</th>
+                                <th class="text-nowrap" scope="col">Total Price</th>
                                 <th class="text-nowrap" scope="col">Day</th>
                             </tr>
                         </thead>

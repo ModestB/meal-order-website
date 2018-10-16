@@ -1,137 +1,86 @@
+// ON submit adds was-validated class on FORM
+// was-validated class initialize fomr validation style
 (function () {
     const submitBtn = document.getElementById('submit');
     const form = document.querySelector('form');
 
     try {
         submitBtn.addEventListener('click', () => {
-            form.classList.add('was-validated')
-        })
+            form.classList.add('was-validated');
+        });
     } catch (error) {
         
-    }
+    };
 }());
-setTimeout(function() {
-    try {
-        document.getElementById("msg").style.display = 'none';
-    } catch (error) {
-        
-    }
-}, 5000);
+
+// Message with $_SESSION['message'] disapears after 5s
+(function () {
+    setTimeout(function() {
+        try {
+            document.getElementById("msg").style.display = 'none';
+        } catch (error) {
+            
+        };
+    }, 5000);
+}());
+
+// idRaw --> id of checkbox label
+// day --> current day of the week used to target correct soup or salad element
+function showCorrectStarter(idRaw){
+    let day, soupElement, saladsElement;
+
+    day = idRaw.substring(0, idRaw.indexOf('Switch'));
+    soupElement = document.querySelector(`#${day} .soup`);
+    saladsElement = document.querySelector(`#${day} .salads`);
+
+    soupElement.classList.toggle('disable');
+    saladsElement.classList.toggle('disable');
+};
 
 (function (){
-    const checkBoxes = Array.from(document.querySelectorAll('.switch > input'));
-    let idRaw, day, soupElement, saladsElement; 
+    const checkBoxes = Array.from(document.querySelectorAll('.switch > input')); 
     checkBoxes.forEach((box) => {
-        if(box.checked){
-            idRaw = box.parentNode.id;
-            day = idRaw.substring(0, idRaw.indexOf('Switch'));
-            soupElement = document.querySelector(`#${day} .soup`)
-            saladsElement = document.querySelector(`#${day} .salads`)
-
-            soupElement.classList.toggle('disable');
-            saladsElement.classList.toggle('disable');
-        }
         box.addEventListener('input', (e) => {
             idRaw = e.target.parentNode.id;
-            day = idRaw.substring(0, idRaw.indexOf('Switch'));
-            soupElement = document.querySelector(`#${day} .soup`)
-            saladsElement = document.querySelector(`#${day} .salads`)
-
-            soupElement.classList.toggle('disable');
-            saladsElement.classList.toggle('disable');
-        })
-    })
-}());
-
-(function (){
-    const saladsOptions = Array.from(document.querySelectorAll('.salads select'));
-    const checkBoxes = Array.from(document.querySelectorAll('.switch > input'));
-    let hasAddonsClass, selectId, hasAddons, addonSelect;
-
-    checkBoxes.forEach((box) => {
-        if(box.checked){
-            saladsOptions.forEach((option) => {
-                if(option.selectedOptions[0].classList.value){
-                    hasAddonsClass = option.selectedOptions[0].classList.value;
-                    hasAddons = hasAddonsClass.includes('True');
-                    if(hasAddons){
-                        selectId = hasAddonsClass.substring(0, hasAddonsClass.indexOf('True'))
-                    }else{
-                        selectId = hasAddonsClass.substring(0, hasAddonsClass.indexOf('False'))
-                    }
-        
-                    addonSelect = document.getElementById(selectId);
-                    if(hasAddons){
-                        addonSelect.classList.remove('disable');
-                    }else{
-                        addonSelect.classList.add('disable');
-                    }
-                }
-            });
-        }
-    })
-    saladsOptions.forEach((option) => {
-        option.addEventListener('input', (e) => {
-            hasAddonsClass = Array.from(e.currentTarget.selectedOptions)[0].classList.value;
-            selectId = "";
-            hasAddons = hasAddonsClass.includes('True');
-            if(hasAddonsClass.includes('True')){
-                selectId = hasAddonsClass.substring(0, hasAddonsClass.indexOf('True'))
-            }else{
-                selectId = hasAddonsClass.substring(0, hasAddonsClass.indexOf('False'))
-            }
-
-            addonSelect = document.getElementById(selectId);
-            if(hasAddons){
-                addonSelect.classList.remove('disable');
-            }else{
-                addonSelect.classList.add('disable');
-            }
-        })
+            showCorrectStarter(idRaw);
+        });
     });
 }());
 
-(function (){
-    const mainDishesOptions = Array.from(document.querySelectorAll('.main-dishes select'));
-    let hasSideDishClass,selectId, hasSideDish, sideDishSelect;
-    mainDishesOptions.forEach((option) => {
-        if(option.selectedOptions[0].classList.value){
-            hasSideDishClass = option.selectedOptions[0].classList.value;
-            selectId = "";
-            hasSideDish = hasSideDishClass.includes('True');
-            if(hasSideDishClass.includes('True')){
-                selectId = hasSideDishClass.substring(0, hasSideDishClass.indexOf('True'))
-            }else{
-                selectId = hasSideDishClass.substring(0, hasSideDishClass.indexOf('False'))
-            }
+// When diffrent select option is selected CHECKS current selected option class
+// Option class can be either weekDayAdditionalOptionsTrue or weekDayAdditionalOptionsFalse
+// IF option class has word TRUE 
+// Substrings AdditionalOptions select id from option class 
+// weekDayAdditionalOptionsTrue --(becomes)--> weekDayAdditionalOptions
+// weekDayAdditionalOptions is id of specific day Additional option selector
+// Using id gets Additional option selector and either SHOWS it or DISABLES it
+function displayCorrectSelect(selector){
+    const dishesOptions = Array.from(document.querySelectorAll(selector));
+    let additionalOptionsClass,selectId, hasSideDish, sideDishSelect;
 
-            sideDishSelect = document.getElementById(selectId);
-            if(hasSideDish){
-                sideDishSelect.classList.remove('disable');
-            }else{
-                sideDishSelect.classList.add('disable');
-            }
-        }
-
+    dishesOptions.forEach((option) => {
         option.addEventListener('input', (e) => {
-            hasSideDishClass = Array.from(e.currentTarget.selectedOptions)[0].classList.value;
+            additionalOptionsClass = Array.from(e.currentTarget.selectedOptions)[0].classList.value;
             selectId = "";
-            hasSideDish = hasSideDishClass.includes('True');
-            if(hasSideDishClass.includes('True')){
-                selectId = hasSideDishClass.substring(0, hasSideDishClass.indexOf('True'))
+            hasAdditionalOptions = additionalOptionsClass.includes('True');
+            if( hasAdditionalOptions){
+                selectId = additionalOptionsClass.substring(0, additionalOptionsClass.indexOf('True'))
             }else{
-                selectId = hasSideDishClass.substring(0, hasSideDishClass.indexOf('False'))
+                selectId = additionalOptionsClass.substring(0, additionalOptionsClass.indexOf('False'))
             }
 
-            sideDishSelect = document.getElementById(selectId);
-            if(hasSideDish){
-                sideDishSelect.classList.remove('disable');
+            additionalOptionsSelect = document.getElementById(selectId);
+            if(hasAdditionalOptions){
+                additionalOptionsSelect.classList.remove('disable');
             }else{
-                sideDishSelect.classList.add('disable');
+                additionalOptionsSelect.classList.add('disable');
             }
         })
     });
-}());
+}
+
+displayCorrectSelect('.salads-select select')
+displayCorrectSelect('.main-dishes select')
 
 function showActivePageButton() {
     const pagesButtons = Array.from(document.querySelectorAll('.heading-text'));
