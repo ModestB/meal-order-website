@@ -1,14 +1,13 @@
 # meal-order
 
-To look arround website you can use:
+To look arround in admin page you can use:
  - Username: admin
  - Password: admin
  
- To test admin page
- 
+
+ To test user page:
  - Username: testuser
  - Password: testuser
  
- To test user page
  
  Or create your own.
